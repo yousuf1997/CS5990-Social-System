@@ -1,6 +1,5 @@
 ## Reader class reads data to contruct graph, and it returns edges as list
-from datareader.DataEdge import DataEdge
-
+import DataEdge
 class DataReader:
     def __init__(self):
         pass
@@ -20,7 +19,7 @@ class DataReader:
                 if index > 3:
                     lineData =  line.split('\t')
                     ## vertex, edge
-                    edge = DataEdge(lineData[0].strip(), lineData[1].strip())
+                    edge = DataEdge.DataEdge(lineData[0].strip(), lineData[1].strip())
                     edges.append(edge)
             print("Finished reading data from Amazon data set")
         return edges
