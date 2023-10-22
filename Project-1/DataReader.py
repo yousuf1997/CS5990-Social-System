@@ -22,4 +22,13 @@ class DataReader:
                     edge = DataEdge.DataEdge(lineData[0].strip(), lineData[1].strip())
                     edges.append(edge)
             print("Finished reading data from Amazon data set")
+        if (dataType == "Twitch"):
+            print("Reading... data from Twitch data set")
+            for index, line in enumerate(lines):
+                if index > 0:
+                    lineData =  line.split(',')
+                    ## vertex, edge
+                    edge = DataEdge.DataEdge(lineData[0].strip(), lineData[1].strip())
+                    edges.append(edge)
+            print("Finished reading data from Twitch data set")
         return edges

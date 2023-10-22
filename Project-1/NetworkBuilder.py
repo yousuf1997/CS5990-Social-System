@@ -40,3 +40,6 @@ class NetworkBuilder:
                     except:
                         print("NetworkBuilder.computeAveragePathLength >> Exception thrown ")
         return totalPathDistanceSum / totalPathSum
+
+    def generateWattsStrogatzNetwork(self, graph: Graph):
+        pass
