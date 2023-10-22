@@ -1,4 +1,4 @@
-# from DataReader import DataReader
+# # from DataReader import DataReader
 from NetworkBuilder import NetworkBuilder
 import networkx as nx
 
@@ -17,14 +17,18 @@ G.add_edge('Q', 'K')
 # ## retrieve the information
 # print(G.adj)
 # print(G.size())
-networkBuilder = NetworkBuilder()
+# networkBuilder = NetworkBuilder()
+# latticeGraph = networkBuilder.generatRegularRingLatticeGraph(G, 4)
+print(G.adj['J'])
+# print(sorted(G.nodes))
+# # reader = DataReader()
 
-# reader = DataReader()
+# # #
+# # edges = reader.readData("C://Users//moham//Downloads//amazon//com-amazon.ungraph.txt", "Amazon")
+# # #
 # #
-# edges = reader.readData("C://Users//moham//Downloads//amazon//com-amazon.ungraph.txt", "Amazon")
+# # amazonGraph = networkBuilder.buildGraph(edges)
 # #
-#
-# amazonGraph = networkBuilder.buildGraph(edges)
-#
-# print("Average degree of amazon network data set >> " + str(networkBuilder.computeAverageDegree(amazonGraph)))
-# print("Network size is >> " + str(networkBuilder.computeNetworkSize(amazonGraph)))
+# # print("Average degree of amazon network data set >> " + str(networkBuilder.computeAverageDegree(amazonGraph)))
+# # print("Network size is >> " + str(networkBuilder.computeNetworkSize(amazonGraph)))
+from pandocfilters import Math

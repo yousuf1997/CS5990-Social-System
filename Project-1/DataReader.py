@@ -1,5 +1,6 @@
 ## Reader class reads data to contruct graph, and it returns edges as list
 import DataEdge
+
 class DataReader:
     def __init__(self):
         pass
