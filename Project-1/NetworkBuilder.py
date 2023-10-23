@@ -82,7 +82,7 @@ class NetworkBuilder:
                 try:
                     ## check the if the vertext has already connection with the randomly targeted node
                     ## if there is, then compute another random vertex
-                    if (regularRingLatticeGraph.has_edge(totalNodesOfGraphList[randomVertexIndex], totalNodesOfGraphList[targetRandomVertexIndex])):
+                    if (regularRingLatticeGraph.has_edge(totalNodesOfGraphList[randomVertexIndex], totalNodesOfGraphList[targetRandomVertexIndex]) or randomVertexIndex == targetRandomVertexIndex):
                         ## since there is already an edge between the vertex and the random vertext
                         ## compute another random
                         targetRandomVertexIndex = random.randrange(0, len(totalNodesOfGraphList))
