@@ -61,34 +61,41 @@ class NetworkBuilder:
         regularRingLatticeGraph = self.generatRegularRingLatticeGraph(graph, K)
         ## beta times the total edges of the graph
         totalNodesToBeRewiredRandomly = int(regularRingLatticeGraph.size() * beta)
-        totalNodesOfGraphList = self.getAllNodesFromGraph(graph)
+        totalNodesOfGraphList = self.getAllNodesFromGraph(regularRingLatticeGraph)
+        print("Regular Ring lattice network has total of " + str(regularRingLatticeGraph.size()) + " Edges.")
+        print("We will be rewiring total of " + str(totalNodesToBeRewiredRandomly) + " edges.")
         for vertex in range(totalNodesToBeRewiredRandomly):
             ## pick random vertex
             ## pick random edge of the vertex
             ## cutt off the connection
-            randomVertexIndex = random.randint(0, len(totalNodesOfGraphList))
-            vertexEdges = self._getEdgesOfVertexAsAList(graph, totalNodesOfGraphList[randomVertexIndex])
-            randomTerminateEdgeIndex = random.randint(0, len(vertexEdges))
+            randomVertexIndex = random.randrange(0, len(totalNodesOfGraphList))
+            vertexEdges = self._getEdgesOfVertexAsAList(regularRingLatticeGraph, totalNodesOfGraphList[randomVertexIndex])
+            randomTerminateEdgeIndex = random.randrange(0, len(vertexEdges))
             ## terminate the connection of the vertext and edge
             regularRingLatticeGraph.remove_edge(totalNodesOfGraphList[randomVertexIndex], vertexEdges[randomTerminateEdgeIndex])
+            print("Removed edges >> V = " + str(totalNodesOfGraphList[randomVertexIndex]) + " , E = " + totalNodesOfGraphList[randomTerminateEdgeIndex])
             ## now lets pick another random vertex
-            targetRandomVertexIndex = random.randint(0, len(totalNodesOfGraphList))
+            targetRandomVertexIndex = random.randrange(0, len(totalNodesOfGraphList))
             ## rewire will be done in the following
             rewireDone = False
             while (rewireDone != True):
                 try:
                     ## check the if the vertext has already connection with the randomly targeted node
                     ## if there is, then compute another random vertex
-                    regularRingLatticeGraph.has_edge(totalNodesOfGraphList[randomVertexIndex], totalNodesOfGraphList[targetRandomVertexIndex])
-                    ## since there is already an edge between the vertex and the random vertext
-                    ## compute another random
-                    targetRandomVertexIndex = random.randint(0, len(totalNodesOfGraphList))
+                    if (regularRingLatticeGraph.has_edge(totalNodesOfGraphList[randomVertexIndex], totalNodesOfGraphList[targetRandomVertexIndex])):
+                        ## since there is already an edge between the vertex and the random vertext
+                        ## compute another random
+                        targetRandomVertexIndex = random.randrange(0, len(totalNodesOfGraphList))
+                    else:
+                        ## since we do not have an edge
+                        ## we will rewire the vertex to the random vertex
+                        regularRingLatticeGraph.add_edge(totalNodesOfGraphList[randomVertexIndex],
+                                                         totalNodesOfGraphList[targetRandomVertexIndex])
+                        rewireDone = True
+                        print("Rewired edges >> V = " + str(totalNodesOfGraphList[randomVertexIndex]) + " , E = " + totalNodesOfGraphList[targetRandomVertexIndex])
                 except:
-                    ## since we do not have an edge
-                    ## we will rewire the vertex to the random vertex
-                    regularRingLatticeGraph.add_edge(totalNodesOfGraphList[randomVertexIndex],
-                                                     totalNodesOfGraphList[targetRandomVertexIndex])
-                    rewireDone = True
+                    targetRandomVertexIndex = random.randrange(0, len(totalNodesOfGraphList))
+                    # rewireDone = True
         return regularRingLatticeGraph
 
     def generatRegularRingLatticeGraph(self, graph: Graph, K: int) -> Graph:
