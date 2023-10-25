@@ -1,6 +1,5 @@
 import random
 
-from hvplot import networkx
 from networkx import Graph
 import networkx as nx
 import DataEdge
@@ -43,6 +42,47 @@ class NetworkBuilder:
                     except:
                         print("NetworkBuilder.computeAveragePathLength >> Exception thrown ")
         return totalPathDistanceSum / totalPathSum
+
+    def generateBarabasiAlbertNetwork(self, vertices:list, K:int) -> Graph:
+        '''
+          1) First build the base network and make sure that each
+             node have at least one edge and compute probabilities on the way
+        '''
+        barabasiAlbertNetwork = Graph()
+        probabilitiesOfNodes = [] ## list of tuples (vertex, probability)
+
+        ## generate K nodes (initial network) and create at least one edge on nodes
+        randomIndex = random.randrange(0, len(vertices))
+        barabasiAlbertNetwork.add_node(vertices[randomIndex])
+        ## remove the vertex from the vertices
+        previouslyAddedVertex = vertices[randomIndex]
+        vertices.remove(vertices[randomIndex])
+        counter = K - 1
+
+        while counter > 0:
+            randomIndex = random.randrange(0, len(vertices))
+            ## join edge the randomly selected node to the previously added vertex
+            barabasiAlbertNetwork.add_edge(previouslyAddedVertex, vertices[randomIndex])
+            ## calculate the probabilities of the current state of network
+            self._calculateProbability(graph=barabasiAlbertNetwork, probabilitiesOfNode=probabilitiesOfNodes, vertex=previouslyAddedVertex)
+            self._calculateProbability(graph=barabasiAlbertNetwork, probabilitiesOfNode=probabilitiesOfNodes, vertex=vertices[randomIndex])
+            previouslyAddedVertex = vertices[randomIndex]
+            vertices.remove(vertices[randomIndex])
+            counter = counter - 1
+        print(probabilitiesOfNodes)
+        return barabasiAlbertNetwork
+
+    def _calculateProbability(self, graph:Graph, probabilitiesOfNode: list, vertex:any):
+        newProbability = (vertex, graph.degree(vertex) / (2 * graph.number_of_edges()))
+        newProbabilityTuple = (vertex, newProbability)
+        ## check the is if the combination is already present
+        for listVertex, probability in probabilitiesOfNode:
+            if vertex == listVertex:
+                ## found the combination and remove
+                probabilitiesOfNode.remove((listVertex, probability))
+                break
+        ## add the new probability
+        probabilitiesOfNode.append((vertex, newProbability))
 
     def generateWattsStrogatzNetwork(self, graph: Graph, K: int, beta: float) -> Graph:
         '''
