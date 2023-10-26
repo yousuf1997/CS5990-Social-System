@@ -1,3 +1,5 @@
+import random
+
 from DataReader import DataReader
 from NetworkBuilder import NetworkBuilder
 import networkx as nx
@@ -19,8 +21,19 @@ G.add_edge('Q', 'K')
 # print(G.adj)
 # print(G.size())
 networkBuilder = NetworkBuilder()
-ring = networkBuilder.generateBarabasiAlbertNetwork(['J', 'K', 'A', 'G', 'U', 'Q', 'T'], 3)
 
+nodes = []
+index = 0
+while index < 10:
+    nodes.append(random.randint(0, 100))
+    index = index + 1
+
+reader = DataReader()
+edges = reader.readData("C://Users//moham//Downloads//amazon//com-amazon.ungraph.txt", "Amazon")
+amazonGraph = networkBuilder.buildGraph(edges)
+
+ring = networkBuilder.generateBarabasiAlbertNetwork(list(amazonGraph.nodes), 1000)
+#
 nx.draw(ring, with_labels=True, pos=nx.spiral_layout(ring))
 plt.show()
 # latticeGraph = networkBuilder.generatRegularRingLatticeGraph(G, 4)
@@ -30,7 +43,6 @@ plt.show()
 # edges = reader.readData("C://Users//moham//Downloads//amazon//com-amazon.ungraph.txt", "Amazon")
 # amazonGraph = networkBuilder.buildGraph(edges)
 # wattsGraph = networkBuilder.generateWattsStrogatzNetwork(graph=amazonGraph, K=10, beta=0.001)
-
 
 # # #
 # # #

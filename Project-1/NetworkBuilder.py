@@ -48,6 +48,7 @@ class NetworkBuilder:
           1) First build the base network and make sure that each
              node have at least one edge and compute probabilities on the way
         '''
+        print("Starting to build Barabasi Albert Network")
         barabasiAlbertNetwork = Graph()
         probabilitiesOfNodes = [] ## list of tuples (vertex, probability)
 
@@ -63,13 +64,30 @@ class NetworkBuilder:
             randomIndex = random.randrange(0, len(vertices))
             ## join edge the randomly selected node to the previously added vertex
             barabasiAlbertNetwork.add_edge(previouslyAddedVertex, vertices[randomIndex])
-            ## calculate the probabilities of the current state of network
-            self._calculateProbability(graph=barabasiAlbertNetwork, probabilitiesOfNode=probabilitiesOfNodes, vertex=previouslyAddedVertex)
-            self._calculateProbability(graph=barabasiAlbertNetwork, probabilitiesOfNode=probabilitiesOfNodes, vertex=vertices[randomIndex])
             previouslyAddedVertex = vertices[randomIndex]
             vertices.remove(vertices[randomIndex])
             counter = counter - 1
-        print(probabilitiesOfNodes)
+
+        ## count the probabilities of the current networks nodes
+        for node in barabasiAlbertNetwork.nodes:
+            self._calculateProbability(graph=barabasiAlbertNetwork, probabilitiesOfNode=probabilitiesOfNodes,
+                                       vertex=node)
+        print("Finished building base network")
+        ## iterate through the rest of the avaiable vertex
+        for node in vertices:
+            ## pick the random one from the probability
+            selected_node_as_edge, probability = random.choices(probabilitiesOfNodes, k=1)[0]
+
+            ## connect new node to the selected edge
+            barabasiAlbertNetwork.add_edge(selected_node_as_edge, node)
+            ## re calculate probability for both vertex and edge
+            ## edge
+            self._calculateProbability(graph=barabasiAlbertNetwork, probabilitiesOfNode=probabilitiesOfNodes,
+                                       vertex=selected_node_as_edge)
+            ## current vetex
+            self._calculateProbability(graph=barabasiAlbertNetwork, probabilitiesOfNode=probabilitiesOfNodes,
+                                       vertex=node)
+        print("Finished building Barabasi Albert Network")
         return barabasiAlbertNetwork
 
     def _calculateProbability(self, graph:Graph, probabilitiesOfNode: list, vertex:any):
@@ -82,7 +100,7 @@ class NetworkBuilder:
                 probabilitiesOfNode.remove((listVertex, probability))
                 break
         ## add the new probability
-        probabilitiesOfNode.append((vertex, newProbability))
+        probabilitiesOfNode.append(newProbabilityTuple)
 
     def generateWattsStrogatzNetwork(self, graph: Graph, K: int, beta: float) -> Graph:
         '''
