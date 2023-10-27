@@ -74,10 +74,12 @@ class NetworkBuilder:
                                        vertex=node)
         print("Finished building base network")
         ## iterate through the rest of the avaiable vertex
+        counter = 0
         for node in vertices:
             ## pick the random one from the probability
             selected_node_as_edge, probability = random.choices(probabilitiesOfNodes, k=1)[0]
-
+            counter = counter + 1
+            print("counter >> " + str(counter))
             ## connect new node to the selected edge
             barabasiAlbertNetwork.add_edge(selected_node_as_edge, node)
             ## re calculate probability for both vertex and edge
