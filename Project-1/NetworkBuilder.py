@@ -30,17 +30,18 @@ class NetworkBuilder:
         return graph.size()
 
     def computeAveragePathLength(self, graph: Graph) -> float:
+        print("Computing average path length")
         totalPathDistanceSum = 0
         totalPathSum = 0
         for vertex, edges in graph.adj.items():
             for otherVertex, innerEdges in graph.adj.items():
                 if otherVertex != vertex:
-                    print("Combination >> " + vertex + ", " + otherVertex)
                     try:
                         totalPathDistanceSum = totalPathDistanceSum + int(nx.shortest_path_length(graph, vertex, otherVertex, method='dijkstra'))
                         totalPathSum = totalPathSum + 1
                     except:
                         print("NetworkBuilder.computeAveragePathLength >> Exception thrown ")
+        print("Finished computing average path length")
         return totalPathDistanceSum / totalPathSum
 
     def generateBarabasiAlbertNetwork(self, vertices:list, K:int) -> Graph:
@@ -183,3 +184,13 @@ class NetworkBuilder:
         for edge, weight in adjacenyItem.items():
             listOfEdges.append(edge)
         return listOfEdges
+
+    def calculateAverageClusteringCoefficient(self, graph:Graph) -> float:
+        totalNodes = len(graph.nodes)
+        clusteringCoefficientTotal = nx.clustering(graph)
+        totalCoefficient = 0
+        print("Computing clustering coefficient")
+        for vertex, coefficient in clusteringCoefficientTotal.items():
+            totalCoefficient = totalCoefficient + coefficient
+        print("Finished computing clustering coefficient")
+        return totalCoefficient / totalNodes

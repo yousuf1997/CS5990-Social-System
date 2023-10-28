@@ -21,21 +21,21 @@ G.add_edge('Q', 'K')
 # print(G.adj)
 # print(G.size())
 networkBuilder = NetworkBuilder()
-
-nodes = []
-index = 0
-while index < 10:
-    nodes.append(random.randint(0, 100))
-    index = index + 1
-
-reader = DataReader()
-edges = reader.readData("C://Users//moham//Downloads//amazon//com-amazon.ungraph.txt", "Amazon")
-amazonGraph = networkBuilder.buildGraph(edges)
-
-ring = networkBuilder.generateBarabasiAlbertNetwork(list(amazonGraph.nodes), 1000)
+networkBuilder.calculateAverageClusteringCoefficient(graph=G)
+# nodes = []
+# index = 0
+# while index < 10:
+#     nodes.append(random.randint(0, 100))
+#     index = index + 1
 #
-nx.draw(ring, with_labels=True, pos=nx.spiral_layout(ring))
-plt.show()
+# reader = DataReader()
+# edges = reader.readData("C://Users//moham//Downloads//amazon//com-amazon.ungraph.txt", "Amazon")
+# amazonGraph = networkBuilder.buildGraph(edges)
+#
+# ring = networkBuilder.generateBarabasiAlbertNetwork(list(amazonGraph.nodes), 1000)
+# #
+# nx.draw(ring, with_labels=True, pos=nx.spiral_layout(ring))
+# plt.show()
 # latticeGraph = networkBuilder.generatRegularRingLatticeGraph(G, 4)
 # print(G.adj['J'])
 # print(sorted(G.nodes))
