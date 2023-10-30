@@ -25,7 +25,7 @@ class NetworkBuilder:
             counter = counter + 1
             for edge, weight in edges.items():
                 totalDegree = totalDegree + 1
-            print("computeAverageDegree >> " + str(counter))
+            # print("computeAverageDegree >> " + str(counter))
         print("Finished computing average degree of the network")
         return (totalDegree / totalNodes)
 
@@ -46,7 +46,7 @@ class NetworkBuilder:
                         totalPathSum = totalPathSum + 1
                     except:
                         print("NetworkBuilder.computeAveragePathLength >> Exception thrown ")
-            print("computeAveragePathLength >> " + str(counter))
+            # print("computeAveragePathLength >> " + str(counter))
         print("Finished computing average path length")
         return totalPathDistanceSum / totalPathSum
 
@@ -86,7 +86,7 @@ class NetworkBuilder:
             ## pick the random one from the probability
             selected_node_as_edge, probability = random.choices(probabilitiesOfNodes, k=1)[0]
             counter = counter + 1
-            print("counter >> " + str(counter))
+            # print("counter >> " + str(counter))
             ## connect new node to the selected edge
             barabasiAlbertNetwork.add_edge(selected_node_as_edge, node)
             ## re calculate probability for both vertex and edge
@@ -140,7 +140,7 @@ class NetworkBuilder:
             randomTerminateEdgeIndex = random.randrange(0, len(vertexEdges))
             ## terminate the connection of the vertext and edge
             regularRingLatticeGraph.remove_edge(totalNodesOfGraphList[randomVertexIndex], vertexEdges[randomTerminateEdgeIndex])
-            print("Removed edges >> V = " + str(totalNodesOfGraphList[randomVertexIndex]) + " , E = " + totalNodesOfGraphList[randomTerminateEdgeIndex])
+            # print("Removed edges >> V = " + str(totalNodesOfGraphList[randomVertexIndex]) + " , E = " + totalNodesOfGraphList[randomTerminateEdgeIndex])
             ## now lets pick another random vertex
             targetRandomVertexIndex = random.randrange(0, len(totalNodesOfGraphList))
             ## rewire will be done in the following
@@ -159,7 +159,7 @@ class NetworkBuilder:
                         regularRingLatticeGraph.add_edge(totalNodesOfGraphList[randomVertexIndex],
                                                          totalNodesOfGraphList[targetRandomVertexIndex])
                         rewireDone = True
-                        print("Rewired edges >> V = " + str(totalNodesOfGraphList[randomVertexIndex]) + " , E = " + totalNodesOfGraphList[targetRandomVertexIndex])
+                        # print("Rewired edges >> V = " + str(totalNodesOfGraphList[randomVertexIndex]) + " , E = " + totalNodesOfGraphList[targetRandomVertexIndex])
                 except:
                     targetRandomVertexIndex = random.randrange(0, len(totalNodesOfGraphList))
                     # rewireDone = True
