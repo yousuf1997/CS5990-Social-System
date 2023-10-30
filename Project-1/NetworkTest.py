@@ -44,7 +44,7 @@ originalNetworkOfAmazon = networkBuilder.buildGraph(originalNetworkOfAmazonRawDa
 # print("Watts-Strogatz Mode Analytics Of Amazon Data")
 # print(tabulate(wattsStrogarzModelOfAmazonDataStatistic, headers='firstrow', tablefmt='fancy_grid'))
 #
-barabasiModelOfAmazonData = networkBuilder.generateBarabasiAlbertNetwork(graph=originalNetworkOfAmazon, K=1000)
+barabasiModelOfAmazonData = networkBuilder.generateBarabasiAlbertNetwork(vertices=list(originalNetworkOfAmazon.nodes), K=1000)
 barabasiModelOfAmazonDataAmazonDataStatistic = [['Average Path Length', 'Clustering Coefficient'],
                         [networkBuilder.computeAveragePathLength(barabasiModelOfAmazonData), networkBuilder.calculateAverageClusteringCoefficient(barabasiModelOfAmazonData)]]
 print("Barabasi Mode Analytics Of Amazon Data")
