@@ -8,9 +8,9 @@ import matplotlib.pyplot as plt
 import time
 import concurrent.futures
 import numpy
-
+from multiprocessing import Pool
 # Number of nodes and edges
-num_nodes = 2000
+num_nodes = 1000
 num_edges = 10000  # You can adjust this number as needed
 
 # Create a random graph with 50 nodes and 100 edges
@@ -33,14 +33,15 @@ def vertexLevelThreadHelper(vertex, G:Graph, sumPathList:list):
     length = len(allNodes)
     vertexLevelThreads = []
     while index < length:
-        subList = allNodes[index:index + 300]
+        subList = allNodes[index:index + 100]
         newThread = threading.Thread(target=vertexPathComputeThreadHelper, args=(vertex, subList, G, sumPathList))
         vertexLevelThreads.append(newThread)
         newThread.start()
-        index = index + 300
-    ## join all the sub threads
-    for thread in vertexLevelThreads:
-        thread.join()
+        ## vertexPathComputeThreadHelper(vertex, subList, G, sumPathList)
+        index = index + 100
+    # ## join all the sub threads
+    # for thread in vertexLevelThreads:
+    #     thread.
 
 def vertexPathComputeThreadHelper(vertex, sublist: list, G:Graph, sumPathList:list):
     sumLength = 0
@@ -59,30 +60,34 @@ def computeAveragePathLength(G:Graph):
     allNodes = list(G.nodes)
     baseThreads = []
     sumPathList = []
-    for vertex in allNodes:
-        newThread = threading.Thread(target=vertexLevelThreadHelper, args=(vertex, G, sumPathList))
-        baseThreads.append(newThread)
-        newThread.start()
-    ## join all the sub threads
-    for thread in baseThreads:
-        thread.join()
+    with Pool(processes=4) as pool:
+        tup = []
+        for vertex in allNodes:
+            # newThread = threading.Thread(target=vertexLevelThreadHelper, args=(vertex, G, sumPathList))
+            # baseThreads.append(newThread)
+            # newThread.start()
+            tup.append((vertex, G, sumPathList))
+
+        results = pool.starmap(vertexLevelThreadHelper, tuple(tup))
+
     return sum(sumPathList) / len(sumPathList)
 
 
-startTime = time.time()
-value = nx.average_shortest_path_length(G)
-endTime = time.time()
-print("Without Thread ->> " + str(value) + " >> " + str(endTime - startTime))
+if __name__ == "__main__":
+    startTime = time.time()
+    value = nx.average_shortest_path_length(G)
+    endTime = time.time()
+    print("Without Thread ->> " + str(value) + " >> " + str(endTime - startTime))
 
-startTime = time.time()
-value= computeAveragePathLength(G)
-endTime = time.time()
+    startTime = time.time()
+    value = computeAveragePathLength(G)
+    endTime = time.time()
 
-print("With Thread ->> " + str(value) + " >> " + str(endTime - startTime))
+    print("With Thread ->> " + str(value) + " >> " + str(endTime - startTime))
 
 
-startTime = time.time()
-value= networkBuilder.computeAveragePathLength(G)
-endTime = time.time()
+    startTime = time.time()
+    value= networkBuilder.computeAveragePathLength(G)
+    endTime = time.time()
 
-print("With Thread (networkBuilder) ->> " + str(value) + " >> " + str(endTime - startTime))
+    print("With Thread (networkBuilder) ->> " + str(value) + " >> " + str(endTime - startTime))

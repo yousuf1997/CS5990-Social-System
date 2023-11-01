@@ -22,6 +22,8 @@ G.add_edge('Q', 'K')
 # print(G.size())
 networkBuilder = NetworkBuilder()
 networkBuilder.calculateAverageClusteringCoefficient(graph=G)
+print(networkBuilder.calculateAverageClusteringCoefficient(graph=G))
+print(networkBuilder.computeAveragePathLength(graph=G))
 # nodes = []
 # index = 0
 # while index < 10:
@@ -39,10 +41,10 @@ networkBuilder.calculateAverageClusteringCoefficient(graph=G)
 # latticeGraph = networkBuilder.generatRegularRingLatticeGraph(G, 4)
 # print(G.adj['J'])
 # print(sorted(G.nodes))
-reader = DataReader()
-edges = reader.readData("C://Users//moham//Downloads//amazon//com-amazon.ungraph.txt", "Amazon")
-amazonGraph = networkBuilder.buildGraph(edges)
-wattsGraph = networkBuilder.generateWattsStrogatzNetwork(graph=G, K=10, beta=0.001)
+# reader = DataReader()
+# edges = reader.readData("C://Users//moham//Downloads//amazon//com-amazon.ungraph.txt", "Amazon")
+# amazonGraph = networkBuilder.buildGraph(edges)
+# wattsGraph = networkBuilder.generateWattsStrogatzNetwork(graph=G, K=10, beta=0.001)
 
 # # #
 # # #

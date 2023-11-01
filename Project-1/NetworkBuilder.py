@@ -33,22 +33,22 @@ class NetworkBuilder:
         return graph.size()
 
     def computeAveragePathLength(self, graph: Graph) -> float:
-        print("Computing average path length")
-        totalPathDistanceSum = 0
-        totalPathSum = 0
-        counter = 0
-        for vertex, edges in graph.adj.items():
-            counter = counter + 1
-            for otherVertex, innerEdges in graph.adj.items():
-                if otherVertex != vertex:
-                    try:
-                        totalPathDistanceSum = totalPathDistanceSum + int(nx.shortest_path_length(graph, vertex, otherVertex, method='dijkstra'))
-                        totalPathSum = totalPathSum + 1
-                    except Exception as e:
-                        print("NetworkBuilder.computeAveragePathLength >> Exception thrown " + str(e))
-            # print("computeAveragePathLength >> " + str(counter))
-        print("Finished computing average path length")
-        return totalPathDistanceSum / totalPathSum
+        # print("Computing average path length")
+        # totalPathDistanceSum = 0
+        # totalPathSum = 0
+        # counter = 0
+        # for vertex, edges in graph.adj.items():
+        #     counter = counter + 1
+        #     for otherVertex, innerEdges in graph.adj.items():
+        #         if otherVertex != vertex:
+        #             try:
+        #                 totalPathDistanceSum = totalPathDistanceSum + int(nx.shortest_path_length(graph, vertex, otherVertex, method='dijkstra'))
+        #                 totalPathSum = totalPathSum + 1
+        #             except Exception as e:
+        #                 print("NetworkBuilder.computeAveragePathLength >> Exception thrown " + str(e))
+        #     # print("computeAveragePathLength >> " + str(counter))
+        # print("Finished computing average path length")
+        return nx.average_shortest_path_length(graph)
 
     def generateBarabasiAlbertNetwork(self, vertices:list, K:int) -> Graph:
         '''
@@ -192,11 +192,11 @@ class NetworkBuilder:
         return listOfEdges
 
     def calculateAverageClusteringCoefficient(self, graph:Graph) -> float:
-        totalNodes = len(graph.nodes)
-        clusteringCoefficientTotal = nx.clustering(graph)
-        totalCoefficient = 0
-        print("Computing clustering coefficient")
-        for vertex, coefficient in clusteringCoefficientTotal.items():
-            totalCoefficient = totalCoefficient + coefficient
-        print("Finished computing clustering coefficient")
-        return totalCoefficient / totalNodes
+        # totalNodes = len(graph.nodes)
+        # clusteringCoefficientTotal = nx.clustering(graph)
+        # totalCoefficient = 0
+        # print("Computing clustering coefficient")
+        # for vertex, coefficient in clusteringCoefficientTotal.items():
+        #     totalCoefficient = totalCoefficient + coefficient
+        # print("Finished computing clustering coefficient")
+        return nx.average_clustering(graph)
