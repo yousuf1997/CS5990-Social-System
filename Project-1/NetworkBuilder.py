@@ -44,8 +44,8 @@ class NetworkBuilder:
                     try:
                         totalPathDistanceSum = totalPathDistanceSum + int(nx.shortest_path_length(graph, vertex, otherVertex, method='dijkstra'))
                         totalPathSum = totalPathSum + 1
-                    except:
-                        print("NetworkBuilder.computeAveragePathLength >> Exception thrown ")
+                    except Exception as e:
+                        print("NetworkBuilder.computeAveragePathLength >> Exception thrown " + str(e))
             # print("computeAveragePathLength >> " + str(counter))
         print("Finished computing average path length")
         return totalPathDistanceSum / totalPathSum
