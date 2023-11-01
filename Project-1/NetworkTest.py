@@ -16,11 +16,11 @@ dataReader = DataReader()
 ## construct the graph as per the edges in the data
 originalNetworkOfAmazonRawData = dataReader.readData("Data/com-amazon.ungraph.txt", "Amazon")
 originalNetworkOfAmazon = networkBuilder.buildGraph(originalNetworkOfAmazonRawData)
-# amazonDataStatistic = [['Network Size', 'Average Degree', 'Average Path Length', 'Clustering Coefficient'],
-#                         [len(originalNetworkOfAmazon.edges), networkBuilder.computeAverageDegree(originalNetworkOfAmazon),
-#                          networkBuilder.computeAveragePathLength(originalNetworkOfAmazon), networkBuilder.calculateAverageClusteringCoefficient(originalNetworkOfAmazon)]]
-# print("Amazon Data Analytics Of Original Graph")
-# print(tabulate(amazonDataStatistic, headers='firstrow', tablefmt='fancy_grid'))
+amazonDataStatistic = [['Network Size', 'Average Degree', 'Average Path Length', 'Clustering Coefficient'],
+                        [len(originalNetworkOfAmazon.edges), networkBuilder.computeAverageDegree(originalNetworkOfAmazon),
+                         networkBuilder.computeAveragePathLength(originalNetworkOfAmazon), networkBuilder.calculateAverageClusteringCoefficient(originalNetworkOfAmazon)]]
+print("Amazon Data Analytics Of Original Graph")
+print(tabulate(amazonDataStatistic, headers='firstrow', tablefmt='fancy_grid'))
 
 #
 # ## the following code reads the twitch data
@@ -44,12 +44,12 @@ originalNetworkOfAmazon = networkBuilder.buildGraph(originalNetworkOfAmazonRawDa
 # print("Watts-Strogatz Mode Analytics Of Amazon Data")
 # print(tabulate(wattsStrogarzModelOfAmazonDataStatistic, headers='firstrow', tablefmt='fancy_grid'))
 #
-barabasiModelOfAmazonData = networkBuilder.generateBarabasiAlbertNetwork(vertices=list(originalNetworkOfAmazon.nodes), K=1000)
-barabasiModelOfAmazonDataAmazonDataStatistic = [['Average Path Length', 'Clustering Coefficient'],
-                        [networkBuilder.computeAveragePathLength(barabasiModelOfAmazonData), networkBuilder.calculateAverageClusteringCoefficient(barabasiModelOfAmazonData)]]
-print("Barabasi Mode Analytics Of Amazon Data")
-print(tabulate(barabasiModelOfAmazonDataAmazonDataStatistic, headers='firstrow', tablefmt='fancy_grid'))
-#
+# barabasiModelOfAmazonData = networkBuilder.generateBarabasiAlbertNetwork(vertices=list(originalNetworkOfAmazon.nodes), K=1000)
+# barabasiModelOfAmazonDataAmazonDataStatistic = [['Average Path Length', 'Clustering Coefficient'],
+#                         [networkBuilder.computeAveragePathLength(barabasiModelOfAmazonData), networkBuilder.calculateAverageClusteringCoefficient(barabasiModelOfAmazonData)]]
+# print("Barabasi Mode Analytics Of Amazon Data")
+# print(tabulate(barabasiModelOfAmazonDataAmazonDataStatistic, headers='firstrow', tablefmt='fancy_grid'))
+# #
 #
 # wattsStrogarzModelOfTwitchData = networkBuilder.generateWattsStrogatzNetwork(graph=originalNetworkOfTwitch, K=120, beta=0.01)
 # wattsStrogarzModelOfTwitchDataStatistic = [['Average Path Length', 'Clustering Coefficient'],
