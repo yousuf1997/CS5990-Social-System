@@ -38,4 +38,4 @@ originalAmazon = threading.Thread(target=original)
 originalAmazon.start()
 
 barbasiAmazon = threading.Thread(target=barbasi)
-originalAmazon.start()
+barbasiAmazon.start()
