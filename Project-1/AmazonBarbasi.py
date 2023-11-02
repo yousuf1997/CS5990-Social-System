@@ -30,3 +30,5 @@ def barbasi():
 
 original()
 barbasi()
+
+print("Amazon Data Analytics Of Original Graph : Average Clustering " + str(networkBuilder.calculateAverageClusteringCoefficient(originalNetworkOfAmazon)))

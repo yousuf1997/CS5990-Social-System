@@ -19,7 +19,6 @@ originalNetworkOfTwitch = networkBuilder.buildGraph(originalNetworkOfTwitchRawDa
 def original():
     print("Twitch Data Analytics Of Original Graph : Average Degree " + str(networkBuilder.computeAverageDegree(originalNetworkOfTwitch)))
     print("Twitch Data Analytics Of Original Graph : Average Path Length " + str(networkBuilder.computeAveragePathLength(originalNetworkOfTwitch)))
-    print("Twitch Data Analytics Of Original Graph : Average Clustering " + str(networkBuilder.calculateAverageClusteringCoefficient(originalNetworkOfTwitch)))
 
 
 def barbasi():
@@ -30,3 +29,4 @@ def barbasi():
 
 original()
 barbasi()
+print("Twitch Data Analytics Of Original Graph : Average Clustering " + str(networkBuilder.calculateAverageClusteringCoefficient(originalNetworkOfTwitch)))
