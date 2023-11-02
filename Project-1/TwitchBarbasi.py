@@ -34,8 +34,5 @@ def barbasi():
     print(tabulate(barabasiModelOfTwitchDataStatistic, headers='firstrow', tablefmt='fancy_grid'))
 
 
-originalTwitch = threading.Thread(target=original)
-originalTwitch.start()
-
-barbasiTwitch= threading.Thread(target=barbasi)
-barbasiTwitch.start()
+original()
+barbasi()

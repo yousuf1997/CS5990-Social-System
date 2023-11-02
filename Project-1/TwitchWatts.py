@@ -7,7 +7,7 @@ networkBuilder = NetworkBuilder()
 dataReader = DataReader()
 
 '''
-    srun -n 1 --ntasks-per-node=1 -p gpu -J twitchW --priority="TOP" -u python TwitchWatts.py > twitchWatts.txt
+    srun -n 1 --ntasks-per-node=1 -p gpu -J twitchW --mem-per-cpu=MaxMemPerCPU -u python TwitchWatts.py > twitchWatts.txt
 '''
 
 ## the following code reads the amazon data

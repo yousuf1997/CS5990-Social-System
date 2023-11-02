@@ -34,8 +34,5 @@ def barbasi():
     print(tabulate(barabasiModelOfAmazonDataAmazonDataStatistic, headers='firstrow', tablefmt='fancy_grid'))
 
 
-originalAmazon = threading.Thread(target=original)
-originalAmazon.start()
-
-barbasiAmazon = threading.Thread(target=barbasi)
-barbasiAmazon.start()
+original()
+barbasi()
