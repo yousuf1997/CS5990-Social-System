@@ -17,7 +17,7 @@ originalNetworkOfAmazon = networkBuilder.buildGraph(originalNetworkOfAmazonRawDa
 
 
 def watts():
-    amazonModelOfTwitchData = networkBuilder.generateWattsStrogatzNetwork(originalNetworkOfAmazon, K=1000, beta=0.001)
+    amazonModelOfTwitchData = networkBuilder.generateWattsStrogatzNetwork(originalNetworkOfAmazon, K=200, beta=0.001)
     amazonModelOfTwitchDataStatistic = [['Average Path Length', 'Clustering Coefficient'],
                             [networkBuilder.computeAveragePathLength(amazonModelOfTwitchData), networkBuilder.calculateAverageClusteringCoefficient(amazonModelOfTwitchData)]]
     print("Watts Model Analytics Of Amazon Data")
