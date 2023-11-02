@@ -32,13 +32,16 @@ def vertexLevelThreadHelper(vertex, G:Graph, sumPathList:list):
     index = 0
     length = len(allNodes)
     vertexLevelThreads = []
-    while index < length:
-        subList = allNodes[index:index + 100]
-        newThread = threading.Thread(target=vertexPathComputeThreadHelper, args=(vertex, subList, G, sumPathList))
-        vertexLevelThreads.append(newThread)
-        newThread.start()
-        ## vertexPathComputeThreadHelper(vertex, subList, G, sumPathList)
-        index = index + 100
+    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+        while index < length:
+            subList = allNodes[index:index + 300]
+            # newThread = threading.Thread(target=vertexPathComputeThreadHelper, args=(vertex, subList, G, sumPathList))
+            # vertexLevelThreads.append(newThread)
+            # newThread.start()
+            ## vertexPathComputeThreadHelper(vertex, subList, G, sumPathList)
+            future = executor.submit(vertexPathComputeThreadHelper, vertex, subList, G, sumPathList)
+            index = index + 300
+        ## executor.shutdown(wait=True)
     # ## join all the sub threads
     # for thread in vertexLevelThreads:
     #     thread.
@@ -60,16 +63,13 @@ def computeAveragePathLength(G:Graph):
     allNodes = list(G.nodes)
     baseThreads = []
     sumPathList = []
-    with Pool(processes=4) as pool:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
         tup = []
         for vertex in allNodes:
-            # newThread = threading.Thread(target=vertexLevelThreadHelper, args=(vertex, G, sumPathList))
-            # baseThreads.append(newThread)
-            # newThread.start()
-            tup.append((vertex, G, sumPathList))
+            future = executor.submit(vertexLevelThreadHelper, vertex, G, sumPathList)
 
-        results = pool.starmap(vertexLevelThreadHelper, tuple(tup))
-
+        # results = pool.starmap(vertexLevelThreadHelper, tuple(tup))
+        ## executor.shutdown(wait=True)
     return sum(sumPathList) / len(sumPathList)
 
 

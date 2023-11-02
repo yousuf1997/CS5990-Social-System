@@ -21,18 +21,18 @@ G.add_edge('Q', 'K')
 # print(G.adj)
 # print(G.size())
 networkBuilder = NetworkBuilder()
-networkBuilder.calculateAverageClusteringCoefficient(graph=G)
-print(networkBuilder.calculateAverageClusteringCoefficient(graph=G))
-print(networkBuilder.computeAveragePathLength(graph=G))
+# networkBuilder.calculateAverageClusteringCoefficient(graph=G)
+# print(networkBuilder.calculateAverageClusteringCoefficient(graph=G))
+# print(networkBuilder.computeAveragePathLength(graph=G))
 # nodes = []
 # index = 0
 # while index < 10:
 #     nodes.append(random.randint(0, 100))
 #     index = index + 1
 #
-# reader = DataReader()
-# edges = reader.readData("C://Users//moham//Downloads//amazon//com-amazon.ungraph.txt", "Amazon")
-# amazonGraph = networkBuilder.buildGraph(edges)
+reader = DataReader()
+edges = reader.readData("Data/large_twitch_edges.csv", "Twitch")
+amazonGraph = networkBuilder.buildGraph(edges)
 #
 # ring = networkBuilder.generateBarabasiAlbertNetwork(list(amazonGraph.nodes), 1000)
 # #
