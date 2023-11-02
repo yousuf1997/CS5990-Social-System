@@ -18,10 +18,8 @@ originalNetworkOfTwitch = networkBuilder.buildGraph(originalNetworkOfTwitchRawDa
 
 def watts():
     wattsModelOfTwitchData = networkBuilder.generateWattsStrogatzNetwork(originalNetworkOfTwitch, K=1000, beta=0.001)
-    wattsModelOfTwitchDataStatistic = [['Average Path Length', 'Clustering Coefficient'],
-                            [networkBuilder.computeAveragePathLength(wattsModelOfTwitchData), networkBuilder.calculateAverageClusteringCoefficient(wattsModelOfTwitchData)]]
-    print("Watts Model Analytics Of Twitch Data")
-    print(tabulate(wattsModelOfTwitchDataStatistic, headers='firstrow', tablefmt='fancy_grid'))
+    print("Twitch Data Analytics Of Watts Graph : Average Path Length " + str(networkBuilder.computeAveragePathLength(wattsModelOfTwitchData)))
+    print("Twitch Data Analytics Of Watts Graph : Average Clustering " + str(networkBuilder.calculateAverageClusteringCoefficient(wattsModelOfTwitchData)))
 
 
 watts()

@@ -17,21 +17,15 @@ originalNetworkOfTwitch = networkBuilder.buildGraph(originalNetworkOfTwitchRawDa
 
 
 def original():
-    twitchDataStatistic = [['Network Size', 'Average Degree', 'Average Path Length', 'Clustering Coefficient'],
-                           [len(originalNetworkOfTwitch.edges),
-                            networkBuilder.computeAverageDegree(originalNetworkOfTwitch),
-                            networkBuilder.computeAveragePathLength(originalNetworkOfTwitch),
-                            networkBuilder.calculateAverageClusteringCoefficient(originalNetworkOfTwitch)]]
-    print("Twitch Data Analytics Of Original Graph")
-    print(tabulate(twitchDataStatistic, headers='firstrow', tablefmt='fancy_grid'))
+    print("Twitch Data Analytics Of Original Graph : Average Degree " + str(networkBuilder.computeAverageDegree(originalNetworkOfTwitch)))
+    print("Twitch Data Analytics Of Original Graph : Average Path Length " + str(networkBuilder.computeAveragePathLength(originalNetworkOfTwitch)))
+    print("Twitch Data Analytics Of Original Graph : Average Clustering " + str(networkBuilder.calculateAverageClusteringCoefficient(originalNetworkOfTwitch)))
 
 
 def barbasi():
     barabasiModelOfTwitchData = networkBuilder.generateBarabasiAlbertNetwork(vertices=list(originalNetworkOfTwitch.nodes), K=1000)
-    barabasiModelOfTwitchDataStatistic = [['Average Path Length', 'Clustering Coefficient'],
-                            [networkBuilder.computeAveragePathLength(barabasiModelOfTwitchData), networkBuilder.calculateAverageClusteringCoefficient(barabasiModelOfTwitchData)]]
-    print("Barabasi Model Analytics Of Twitch Data")
-    print(tabulate(barabasiModelOfTwitchDataStatistic, headers='firstrow', tablefmt='fancy_grid'))
+    print("Twitch Data Analytics Of Barbasi Graph : Average Path Length " + str(networkBuilder.computeAveragePathLength(barabasiModelOfTwitchData)))
+    print("Twitch Data Analytics Of Barbasi Graph : Average Clustering " + str(networkBuilder.calculateAverageClusteringCoefficient(barabasiModelOfTwitchData)))
 
 
 original()

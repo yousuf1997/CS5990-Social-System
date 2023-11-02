@@ -17,21 +17,15 @@ originalNetworkOfAmazon = networkBuilder.buildGraph(originalNetworkOfAmazonRawDa
 
 
 def original():
-    amazonDataStatistic = [['Network Size', 'Average Degree', 'Average Path Length', 'Clustering Coefficient'],
-                           [len(originalNetworkOfAmazon.edges),
-                            networkBuilder.computeAverageDegree(originalNetworkOfAmazon),
-                            networkBuilder.computeAveragePathLength(originalNetworkOfAmazon),
-                            networkBuilder.calculateAverageClusteringCoefficient(originalNetworkOfAmazon)]]
-    print("Amazon Data Analytics Of Original Graph")
-    print(tabulate(amazonDataStatistic, headers='firstrow', tablefmt='fancy_grid'))
+    print("Amazon Data Analytics Of Original Graph : Average Degree " + str(networkBuilder.computeAverageDegree(originalNetworkOfAmazon)))
+    print("Amazon Data Analytics Of Original Graph : Average Path Length " + str(networkBuilder.computeAveragePathLength(originalNetworkOfAmazon)))
+    print("Amazon Data Analytics Of Original Graph : Average Clustering " + str(networkBuilder.calculateAverageClusteringCoefficient(originalNetworkOfAmazon)))
 
 
 def barbasi():
     barabasiModelOfAmazonData = networkBuilder.generateBarabasiAlbertNetwork(vertices=list(originalNetworkOfAmazon.nodes), K=1000)
-    barabasiModelOfAmazonDataAmazonDataStatistic = [['Average Path Length', 'Clustering Coefficient'],
-                            [networkBuilder.computeAveragePathLength(barabasiModelOfAmazonData), networkBuilder.calculateAverageClusteringCoefficient(barabasiModelOfAmazonData)]]
-    print("Barabasi Mode Analytics Of Amazon Data")
-    print(tabulate(barabasiModelOfAmazonDataAmazonDataStatistic, headers='firstrow', tablefmt='fancy_grid'))
+    print("Amazon Data Analytics Of Barbasi Graph : Average Path Length " + str(networkBuilder.computeAveragePathLength(barabasiModelOfAmazonData)))
+    print("Amazon Data Analytics Of Barbasi Graph : Average Clustering " + str(networkBuilder.calculateAverageClusteringCoefficient(barabasiModelOfAmazonData)))
 
 
 original()
