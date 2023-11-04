@@ -7,7 +7,7 @@ networkBuilder = NetworkBuilder()
 dataReader = DataReader()
 
 '''
-    srun -n 1 --ntasks-per-node=1 -p gpu -J amazonW --priority="TOP" -u python AmazonWatts.py > amazonWatts.txt
+    srun -n 1 --ntasks-per-node=1 -p gpu --mem=50GB -J amazonW --priority="TOP" -u python AmazonWatts.py > amazonWatts.txt
 '''
 
 ## the following code reads the amazon data
@@ -20,6 +20,4 @@ def watts():
     amazonModelOfTwitchData = networkBuilder.generateWattsStrogatzNetwork(originalNetworkOfAmazon, K=200, beta=0.001)
     print("Amazon Data Analytics Of Watts Graph : Average Path Length " + str(networkBuilder.computeAveragePathLength(amazonModelOfTwitchData)))
     print("Amazon Data Analytics Of Watts Graph : Average Clustering " + str(networkBuilder.calculateAverageClusteringCoefficient(amazonModelOfTwitchData)))
-
-
 watts()
