@@ -8,24 +8,24 @@ from tabulate import tabulate
 networkBuilder = NetworkBuilder()
 dataReader = DataReader()
 
-'''
-    The following two experiments,and constructs the graph of the network provided by the test data
-'''
-
-## the following code reads the amazon data
-## construct the graph as per the edges in the data
-originalNetworkOfAmazonRawData = dataReader.readData("Data/com-amazon.ungraph.txt", "Amazon")
-originalNetworkOfAmazon = networkBuilder.buildGraph(originalNetworkOfAmazonRawData)
-amazonDataStatistic = [['Network Size', 'Average Degree', 'Average Path Length', 'Clustering Coefficient'],
-                        [len(originalNetworkOfAmazon.edges), networkBuilder.computeAverageDegree(originalNetworkOfAmazon),
-                         networkBuilder.computeAveragePathLength(originalNetworkOfAmazon), networkBuilder.calculateAverageClusteringCoefficient(originalNetworkOfAmazon)]]
-print("Amazon Data Analytics Of Original Graph")
-print(tabulate(amazonDataStatistic, headers='firstrow', tablefmt='fancy_grid'))
-
+# '''
+#     The following two experiments,and constructs the graph of the network provided by the test data
+# '''
+#
+# ## the following code reads the amazon data
+# ## construct the graph as per the edges in the data
+# originalNetworkOfAmazonRawData = dataReader.readData("com-amazon.ungraph.txt", "Amazon")
+# originalNetworkOfAmazon = networkBuilder.buildGraph(originalNetworkOfAmazonRawData)
+# amazonDataStatistic = [['Network Size', 'Average Degree', 'Average Path Length', 'Clustering Coefficient'],
+#                         [len(originalNetworkOfAmazon.edges), networkBuilder.computeAverageDegree(originalNetworkOfAmazon),
+#                          networkBuilder.computeAveragePathLength(originalNetworkOfAmazon), networkBuilder.calculateAverageClusteringCoefficient(originalNetworkOfAmazon)]]
+# print("Amazon Data Analytics Of Original Graph")
+# print(tabulate(amazonDataStatistic, headers='firstrow', tablefmt='fancy_grid'))
+#
 #
 # ## the following code reads the twitch data
 # ## construct the graph as per the edges in the data
-# originalNetworkOfTwitchRawData = dataReader.readData("[YOUR_PATH]//arge twitch_edges.csv", "Twitch")
+# originalNetworkOfTwitchRawData = dataReader.readData("large_twitch_edges.csv", "Twitch")
 # originalNetworkOfTwitch = networkBuilder.buildGraph(originalNetworkOfAmazonRawData)
 # twitchDataStatistic = [['Network Size', 'Average Degree', 'Average Path Length', 'Clustering Coefficient'],
 #                         [len(originalNetworkOfTwitch.edges), networkBuilder.computeAverageDegree(originalNetworkOfTwitch),
