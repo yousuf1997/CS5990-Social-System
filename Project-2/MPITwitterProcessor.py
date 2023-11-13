@@ -13,26 +13,25 @@ matrix = None
 if rank == 0:
     ## populate empty matrix
     matrix = []
-    for i in range(20):
+    for i in range(21):
         matrix.append(Matrix("rank " + str(i)))
     ## if this is rank 0, it will send the data
     ## otherwise will receieve the data
 
 matrix = comm.scatter(matrix, root=0)
-
-if rank in range(20):
-    ## read the file and populate the individual matrix
-    dataReader.readData("Data/twitter/twitter_combined_"+ str(rank + 1) + ".txt", "Twitter", matrix)
-    # print(rank, matrix.getMatrix())
+if rank > 0:
+    if rank in range(21):
+        ## read the file and populate the individual matrix
+        dataReader.readData("Data/twitter/twitter_combined_"+ str(rank) + ".txt", "Twitter", matrix)
+        # print(rank, matrix.getMatrix())
 
 ## make sure all process are done before gathering
 comm.Barrier()
-
 gatheredMatrix = comm.gather(matrix, root=0)
-
 if rank == 0:
     gatheredMatrix = list(gatheredMatrix)
     matrixWrapper = MatrixWrapper()
     for matrix in gatheredMatrix:
-        matrixWrapper.appendMatrix(matrix)
+        if (matrix.name != "rank 0"):
+            matrixWrapper.appendMatrix(matrix)
     print("Shortest of 182884883 to 16672159" , compute_shortest_path(matrixWrapper, "182884883", "16672159"))
