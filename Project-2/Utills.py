@@ -1,7 +1,7 @@
 from Model import MatrixWrapper
 import sys
 def compute_shortest_path(adjacencyData : MatrixWrapper, vertex, targetNode) -> int:
-    visitedNodes = {}
+    visitedNodes = set()
     return dfs(adjacencyData, vertex, targetNode, visitedNodes, 0, sys.maxsize - 50)
 
 def dfs(matrixWrapper, vertex, targetNode, visitedNodes, count, minPath):
@@ -11,7 +11,7 @@ def dfs(matrixWrapper, vertex, targetNode, visitedNodes, count, minPath):
 
     if count > minPath:
         return count
-    
+
     # Mark the current node as visited
     visitedNodes.add(vertex)
     count += 1
