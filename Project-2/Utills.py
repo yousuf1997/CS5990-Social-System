@@ -2,7 +2,6 @@ from Model import MatrixWrapper
 import sys
 def compute_shortest_path(adjacencyData : MatrixWrapper, vertex, targetNode) -> int:
     visitedNodes = {}
-    print(adjacencyData.getVertex())
     return dfs(adjacencyData, vertex, targetNode, visitedNodes, 0)
 
 def dfs(matrixWrapper, vertex, targetNode, visitedNodes, count):
