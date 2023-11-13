@@ -23,7 +23,7 @@ def dfs(matrixWrapper, vertex, targetNode, visitedNodes, count, minPath):
         # Check if the edge is not visited
         if edge not in visitedNodes:
             # Recursively find the path length
-            new_count = dfs(matrixWrapper, edge, targetNode, visitedNodes, count, minPath)
+            new_count = dfs(matrixWrapper, edge, targetNode, set(visitedNodes), count, minPath)
             # Update minPath if a shorter path is found
             minPath = min(new_count, minPath)
 
