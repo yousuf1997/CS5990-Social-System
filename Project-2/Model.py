@@ -26,7 +26,7 @@ class Matrix:
             return None
 
     def getVertex(self):
-        return self.__vertexList
+        return set(self.__vertexList)
 
     def getMatrix(self):
         return self.__matrix
