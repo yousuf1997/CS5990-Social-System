@@ -54,7 +54,7 @@ if rank == 0:
         originalArray = matrixWrapper.getVertex()
         subarraySize = len(originalArray) // 40
         subVertex = [originalArray[i * subarraySize: (i + 1) * subarraySize] for i in range(40)]
-        matrix = [ProcessorWrapper(Matrix("rank " + str(i + 1)), BUILD_ADJACENCY_LIST)]
+        matrix = [ProcessorWrapper(Matrix("rank " + str(i + 1)), COMPUTE_SHORTEST_DISTANCE)]
         for i, subV in enumerate(subVertex):
-            matrix.append(ProcessorWrapper(Matrix("rank " + str(i + 1)), BUILD_ADJACENCY_LIST, matrixWrapper, subV))
+            matrix.append(ProcessorWrapper(Matrix("rank " + str(i + 1)), COMPUTE_SHORTEST_DISTANCE, matrixWrapper, subV))
         matrix = comm.scatter(matrix, root=0)
