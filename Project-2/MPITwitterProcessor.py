@@ -31,6 +31,7 @@ gatheredMatrix = comm.gather(matrix, root=0)
 if rank == 0:
     gatheredMatrix = list(gatheredMatrix)
     matrixWrapper = MatrixWrapper()
+    print("Vertexes ", len(matrixWrapper.getVertex()))
     for matrix in gatheredMatrix:
         if (matrix.name != "rank 0"):
             matrixWrapper.appendMatrix(matrix)
