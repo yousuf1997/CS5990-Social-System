@@ -7,26 +7,27 @@ rank = comm.Get_rank()
 size = comm.Get_size()
 dataReader = DataReader()
 
-matrixList = None
+matrix = None
 
 if rank == 0:
     ## populate empty matrix
-    matrixList = []
+    matrix = []
     for i in range(20):
-        matrixList.append(Matrix())
+        matrix.append(Matrix("rank " + str(i)))
+    ## if this is rank 0, it will send the data
+    ## otherwise will receieve the data
 
-## if this is rank 0, it will send the data
-## otherwise will receieve the data
-matrix = comm.scatter(matrixList, root=0)
-
-gatheredMatrix = comm.gather(matrixList, root=0)
+matrix = comm.scatter(matrix, root=0)
 
 if rank in range(20):
     ## read the file and populate the individual matrix
-   dataReader.readData("Data/twitter/twitter_combined_"+ str(rank + 1) + ".txt", "Twitter", matrix)
+    dataReader.readData("Data/twitter/twitter_combined_"+ str(rank + 1) + ".txt", "Twitter", matrix)
+    print(rank, matrix.getMatrix())
+
+gatheredMatrix = comm.gather(matrix, root=0)
 
 if rank == 0:
-    ## use the gathered matrix to populate the wrapper
+    gatheredMatrix = list(gatheredMatrix)
     matrixWrapper = MatrixWrapper()
     for matrix in gatheredMatrix:
         matrixWrapper.appendMatrix(matrix)

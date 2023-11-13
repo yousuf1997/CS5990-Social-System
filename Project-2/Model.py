@@ -1,7 +1,8 @@
 
 class Matrix:
-    def __init__(self):
+    def __init__(self, name):
         self.__matrix = {}
+        self.name = name
 
     def put(self, vertex, edge):
         edgesMap = {}
@@ -14,7 +15,10 @@ class Matrix:
         self.__matrix[vertex] = edgesMap
 
     def getEdges(self, vertex):
-        return list(self.__matrix[vertex].keys())
+        try:
+            return list(self.__matrix[vertex].keys())
+        except:
+            return None
 
     def getMatrix(self):
         return self.__matrix
@@ -30,5 +34,8 @@ class MatrixWrapper:
     def getEdges(self, vertex):
         edges = []
         for matrix in self.__matrixContainer:
-            edges.extend(matrix.getEdges(vertex))
+            print("Reading ", matrix)
+            mEdges = matrix.getEdges(vertex)
+            if mEdges != None:
+                edges.extend(mEdges)
         return list(set(edges))
