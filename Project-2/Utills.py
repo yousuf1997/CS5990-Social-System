@@ -2,29 +2,27 @@ from Model import MatrixWrapper
 import sys
 def compute_shortest_path(adjacencyData : MatrixWrapper, vertex, targetNode) -> int:
     visitedNodes = set()
-    return dfs(adjacencyData, vertex, targetNode, visitedNodes, 0, sys.maxsize - 50)
+    return bfs(adjacencyData, vertex, targetNode)
 
-def dfs(matrixWrapper, vertex, targetNode, visitedNodes, count, minPath):
+def bfs(matrixWrapper, vertex, targetNode):
     # Base case: Check if the current vertex is the target node
-    if vertex == targetNode:
-        return count
+    visitedNodes = set()
 
-    if count > minPath:
-        return count
+    queue = []
 
-    # Mark the current node as visited
+    queue.append([vertex, 1])
     visitedNodes.add(vertex)
-    count += 1
+    minPath = sys.maxsize - 50
 
-    # Get all edges of the vertex
-    edges = matrixWrapper.getEdges(vertex)
-
-    for edge in edges:
-        # Check if the edge is not visited
-        if edge not in visitedNodes:
-            # Recursively find the path length
-            new_count = dfs(matrixWrapper, edge, targetNode, set(visitedNodes), count, minPath)
-            # Update minPath if a shorter path is found
-            minPath = min(new_count, minPath)
+    while queue:
+        current = queue.pop()
+        edges = matrixWrapper.getEdges(current[0])
+        if current[0] == targetNode:
+            return current[1] - 1
+        for edge in edges:
+            if edge not in visitedNodes:
+                print()
+                visitedNodes.add(edge)
+                queue.append([edge, current[1] + 1])
 
     return minPath
