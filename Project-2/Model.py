@@ -1,5 +1,4 @@
 
-
 class Matrix:
     def __init__(self):
         self.__matrix = {}
@@ -15,5 +14,21 @@ class Matrix:
         self.__matrix[vertex] = edgesMap
 
     def getEdges(self, vertex):
-        return self.__matrix[vertex].keys()
+        return list(self.__matrix[vertex].keys())
 
+    def getMatrix(self):
+        return self.__matrix
+
+class MatrixWrapper:
+
+    def __init__(self):
+        self.__matrixContainer = []
+
+    def appendMatrix(self, matrix:Matrix):
+        self.__matrixContainer.append(matrix)
+
+    def getEdges(self, vertex):
+        edges = []
+        for matrix in self.__matrixContainer:
+            edges.extend(matrix.getEdges(vertex))
+        return list(set(edges))
