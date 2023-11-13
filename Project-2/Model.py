@@ -2,6 +2,7 @@
 class Matrix:
     def __init__(self, name):
         self.__matrix = {}
+        self.__vertexList = set()
         self.name = name
 
     def put(self, vertex, edge):
@@ -12,6 +13,10 @@ class Matrix:
             pass
         ## distance
         edgesMap[edge] = 0
+
+        self.__vertexList.add(vertex)
+        self.__vertexList.add(edge)
+
         self.__matrix[vertex] = edgesMap
 
     def getEdges(self, vertex):
@@ -19,6 +24,9 @@ class Matrix:
             return list(self.__matrix[vertex].keys())
         except:
             return None
+
+    def getVertex(self):
+        return self.__vertexList
 
     def getMatrix(self):
         return self.__matrix
@@ -34,8 +42,22 @@ class MatrixWrapper:
     def getEdges(self, vertex):
         edges = []
         for matrix in self.__matrixContainer:
-            print("Reading ", matrix)
             mEdges = matrix.getEdges(vertex)
             if mEdges != None:
                 edges.extend(mEdges)
         return list(set(edges))
+
+    def updateDistanceToAnEdge(self, vertex, edge, distance):
+        edgeMap = None
+        try:
+            edgeMap = self.__matrixContainer[vertex]
+        except:
+            self.__matrixContainer[vertex] = {}
+            edgeMap = self.__matrixContainer[vertex]
+        edgeMap[edge] = distance
+
+    def getVertex(self):
+        vertex = []
+        for matrix in self.__matrixContainer:
+            vertex.extend(list(matrix.getVertex()))
+        return set(vertex)

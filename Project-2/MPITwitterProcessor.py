@@ -31,3 +31,4 @@ if rank == 0:
     matrixWrapper = MatrixWrapper()
     for matrix in gatheredMatrix:
         matrixWrapper.appendMatrix(matrix)
+    print("Size of the vertex ", len(matrixWrapper.getVertex()))
