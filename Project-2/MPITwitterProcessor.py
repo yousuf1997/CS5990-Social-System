@@ -22,7 +22,7 @@ matrix = comm.scatter(matrix, root=0)
 if rank in range(20):
     ## read the file and populate the individual matrix
     dataReader.readData("Data/twitter/twitter_combined_"+ str(rank + 1) + ".txt", "Twitter", matrix)
-    print(rank, matrix.getMatrix())
+    # print(rank, matrix.getMatrix())
 
 gatheredMatrix = comm.gather(matrix, root=0)
 
