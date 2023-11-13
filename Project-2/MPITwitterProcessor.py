@@ -1,6 +1,7 @@
 from mpi4py import MPI
 from Model import Matrix, MatrixWrapper
 from DataReader import  DataReader
+from Utills import compute_shortest_path
 
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
@@ -31,4 +32,4 @@ if rank == 0:
     matrixWrapper = MatrixWrapper()
     for matrix in gatheredMatrix:
         matrixWrapper.appendMatrix(matrix)
-    print("Size of the vertex ", len(matrixWrapper.getVertex()))
+    print("Shortest of 182884883 to 16672159" , compute_shortest_path(matrixWrapper, "182884883", "16672159"))
