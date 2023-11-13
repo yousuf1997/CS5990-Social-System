@@ -30,4 +30,4 @@ def dfs(matrixWrapper, vertex, targetNode, visitedNodes):
             # Recursively find the path length
             minPath = min(1 + dfs(matrixWrapper, edge, targetNode, visitedNodes), minPath)
 
-    return minPath if minPath < sys.maxsize else -1  # Return -1 for unreachable targetNode
+    return minPath if minPath < sys.maxsize else sys.maxsize - 50  # Return -1 for unreachable targetNode
