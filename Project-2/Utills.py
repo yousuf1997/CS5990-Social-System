@@ -5,6 +5,8 @@ def compute_shortest_path(adjacencyData : MatrixWrapper, vertex, targetNode) -> 
     return dfs(adjacencyData, vertex, targetNode, visitedNodes)
 
 def dfs(matrixWrapper : MatrixWrapper, vertex, targetNode, visitedNodes) -> int:
+    if vertex == targetNode:
+        return 0
     ## mark the current node as visited
     visitedNodes[vertex] = True
     ## get the all edges of the vertex
@@ -12,7 +14,8 @@ def dfs(matrixWrapper : MatrixWrapper, vertex, targetNode, visitedNodes) -> int:
     minPath = sys.maxsize - 50
     for edge in edges:
         try:
-            visited = visitedNodes[edges]
+            if visitedNodes[edge] != True:
+                minPath = min(1 + dfs(matrixWrapper, edge, targetNode, visitedNodes), minPath)
         except:
             minPath = min(1 + dfs(matrixWrapper, edge, targetNode, visitedNodes), minPath)
     return minPath
