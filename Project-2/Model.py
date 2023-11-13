@@ -63,7 +63,8 @@ class MatrixWrapper:
         return sorted(set(vertex))
 
 class ProcessorWrapper:
-    def __init__(self, matrix: Matrix, scatterType: str, marixWrapper : MatrixWrapper = None):
+    def __init__(self, matrix: Matrix, scatterType: str, marixWrapper : MatrixWrapper = None, vertex = None):
         self.scatterType = scatterType
         self.matrix = matrix
         self.matrixWrapper = marixWrapper
+        self.vertex = vertex
