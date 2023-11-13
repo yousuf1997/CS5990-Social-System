@@ -61,3 +61,9 @@ class MatrixWrapper:
         for matrix in self.__matrixContainer:
             vertex.extend(list(matrix.getVertex()))
         return sorted(set(vertex))
+
+class ProcessorWrapper:
+    def __init__(self, matrix: Matrix, scatterType: str, marixWrapper : MatrixWrapper = None):
+        self.scatterType = scatterType
+        self.matrix = matrix
+        self.matrixWrapper = marixWrapper
