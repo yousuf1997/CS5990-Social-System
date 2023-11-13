@@ -10,18 +10,16 @@ def bfs(matrixWrapper, vertex, targetNode):
 
     queue = []
 
-    queue.append([vertex, 1])
-    visitedNodes.add(vertex)
-    minPath = sys.maxsize - 50
+    queue.append([vertex, 0])
 
     while queue:
         current = queue.pop()
         edges = matrixWrapper.getEdges(current[0])
         if current[0] == targetNode:
-            return current[1] - 1
-        for edge in edges:
-            if edge not in visitedNodes:
-                visitedNodes.add(edge)
-                queue.append([edge, current[1] + 1])
-
-    return minPath
+            return current[1]
+        if current[0] not in visitedNodes:
+            visitedNodes.add(current[0])
+            for edge in edges:
+                if edge not in visitedNodes:
+                    queue.append([edge, current[1] + 1])
+    return 0

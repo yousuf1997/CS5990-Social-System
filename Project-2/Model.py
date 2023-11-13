@@ -45,7 +45,7 @@ class MatrixWrapper:
             mEdges = matrix.getEdges(vertex)
             if mEdges != None:
                 edges.extend(mEdges)
-        return list(set(edges))
+        return sorted(list(set(edges)))
 
     def updateDistanceToAnEdge(self, vertex, edge, distance):
         edgeMap = None
@@ -60,4 +60,4 @@ class MatrixWrapper:
         vertex = []
         for matrix in self.__matrixContainer:
             vertex.extend(list(matrix.getVertex()))
-        return set(vertex)
+        return sorted(set(vertex))
