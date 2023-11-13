@@ -7,7 +7,7 @@ def compute_shortest_path(adjacencyData : MatrixWrapper, vertex, targetNode) -> 
 
 def dfs(matrixWrapper, vertex, targetNode, visitedNodes):
     if vertex == targetNode:
-        return 0
+        return sys.maxsize - 50
 
     # Mark the current node as visited
     visitedNodes[vertex] = True
