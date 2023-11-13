@@ -18,6 +18,8 @@ if rank == 0:
     ## if this is rank 0, it will send the data
     ## otherwise will receieve the data
 
+comm.Barrier()
+
 matrix = comm.scatter(matrix, root=0)
 
 ## read the file and populate the individual matrix
@@ -25,6 +27,8 @@ dataReader.readData("Data/twitter/twitter_combined_"+ str(rank) + ".txt", "Twitt
         # print(rank, matrix.getMatrix())
 
 gatheredMatrix = comm.gather(matrix, root=0)
+
+comm.Barrier()
 
 if rank == 0:
     gatheredMatrix = list(gatheredMatrix)
