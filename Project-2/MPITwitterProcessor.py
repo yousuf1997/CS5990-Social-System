@@ -31,8 +31,8 @@ gatheredMatrix = comm.gather(matrix, root=0)
 if rank == 0:
     gatheredMatrix = list(gatheredMatrix)
     matrixWrapper = MatrixWrapper()
-    print("Vertexes ", len(matrixWrapper.getVertex()))
     for matrix in gatheredMatrix:
         if (matrix.name != "rank 0"):
             matrixWrapper.appendMatrix(matrix)
+    print("Vertexes ", len(matrixWrapper.getVertex()))
     print("Shortest of 182884883 to 16672159" , compute_shortest_path(matrixWrapper, "182884883", "16672159"))
