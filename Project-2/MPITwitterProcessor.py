@@ -20,15 +20,12 @@ if rank == 0:
 
 matrix = comm.scatter(matrix, root=0)
 if rank > 0:
-    if rank in range(21):
-        ## read the file and populate the individual matrix
-        dataReader.readData("Data/twitter/twitter_combined_"+ str(rank) + ".txt", "Twitter", matrix)
+    ## read the file and populate the individual matrix
+    dataReader.readData("Data/twitter/twitter_combined_"+ str(rank) + ".txt", "Twitter", matrix)
         # print(rank, matrix.getMatrix())
 
-## make sure all process are done before gathering
-comm.Barrier()
-print("Passing the barrierr")
 gatheredMatrix = comm.gather(matrix, root=0)
+
 if rank == 0:
     gatheredMatrix = list(gatheredMatrix)
     matrixWrapper = MatrixWrapper()
