@@ -21,7 +21,6 @@ def bfs(matrixWrapper, vertex, targetNode):
             return current[1] - 1
         for edge in edges:
             if edge not in visitedNodes:
-                print()
                 visitedNodes.add(edge)
                 queue.append([edge, current[1] + 1])
 
