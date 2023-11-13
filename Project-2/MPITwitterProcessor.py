@@ -16,7 +16,7 @@ matrix = None
 if rank == 0:
     ## populate empty matrix
     matrix = []
-    for i in range(21):
+    for i in range(40):
         matrix.append(ProcessorWrapper(Matrix("rank " + str(i)), BUILT_ADJACENCY_LIST))
     ## if this is rank 0, it will send the data
     ## otherwise will receieve the data
@@ -26,8 +26,10 @@ comm.Barrier()
 matrix = comm.scatter(matrix, root=0)
 
 ## read the file and populate the individual matrix
-dataReader.readData("Data/twitter/twitter_combined_"+ str(rank) + ".txt", "Twitter", matrix.matrix)
-        # print(rank, matrix.getMatrix())
+if rank in range(0 , 21):
+    dataReader.readData("Data/twitter/twitter_combined_"+ str(rank) + ".txt", "Twitter", matrix.matrix)
+else:
+    pass
 
 gatheredMatrix = comm.gather(matrix, root=0)
 
@@ -40,4 +42,4 @@ if rank == 0:
         if matrix.matrix.name != "rank 0":
             matrixWrapper.appendMatrix(matrix.matrix)
     print("Vertexes ", len(matrixWrapper.getVertex()))
-    print("Shortest of 187144700 to 187371384" , compute_shortest_path(matrixWrapper, "187144700", "187371384"))
+    print("Shortest of 14174128 to 41728946", compute_shortest_path(matrixWrapper, "14174128", "41728946"))
