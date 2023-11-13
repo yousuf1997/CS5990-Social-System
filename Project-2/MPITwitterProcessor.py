@@ -26,7 +26,7 @@ if rank in range(20):
     # print(rank, matrix.getMatrix())
 
 ## make sure all process are done before gathering
-comm.barrier()
+comm.Barrier()
 
 gatheredMatrix = comm.gather(matrix, root=0)
 
