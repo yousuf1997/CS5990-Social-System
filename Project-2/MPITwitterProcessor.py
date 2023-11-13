@@ -27,6 +27,7 @@ if rank > 0:
 
 ## make sure all process are done before gathering
 comm.Barrier()
+print("Passing the barrierr")
 gatheredMatrix = comm.gather(matrix, root=0)
 if rank == 0:
     gatheredMatrix = list(gatheredMatrix)
