@@ -22,7 +22,7 @@ def dfs(matrixWrapper, vertex, targetNode, visitedNodes):
     # Get all edges of the vertex
     edges = matrixWrapper.getEdges(vertex)
 
-    minPath = sys.maxsize
+    minPath = sys.maxsize - 50
 
     for edge in edges:
         # Check if the edge is not visited
@@ -30,4 +30,4 @@ def dfs(matrixWrapper, vertex, targetNode, visitedNodes):
             # Recursively find the path length
             minPath = min(1 + dfs(matrixWrapper, edge, targetNode, visitedNodes), minPath)
 
-    return minPath if minPath < sys.maxsize else sys.maxsize - 50  # Return -1 for unreachable targetNode
+    return minPath
