@@ -15,5 +15,5 @@ class DataReader:
         for index, line in enumerate(lines):
                     lineData = line.split(' ')
                     ## vertex, edge
-                    matrix.put(lineData[0].strip(), lineData[1].strip())
+                    matrix.put(str(lineData[0].strip()), str(lineData[1].strip()))
         print("Finished reading data from " + filePath + " >> " + dataType + " data set")
