@@ -25,6 +25,9 @@ if rank in range(20):
     dataReader.readData("Data/twitter/twitter_combined_"+ str(rank + 1) + ".txt", "Twitter", matrix)
     # print(rank, matrix.getMatrix())
 
+## make sure all process are done before gathering
+comm.barrier()
+
 gatheredMatrix = comm.gather(matrix, root=0)
 
 if rank == 0:
