@@ -33,4 +33,4 @@ if rank == 0:
         if (matrix.name != "rank 0"):
             matrixWrapper.appendMatrix(matrix)
     print("Vertexes ", len(matrixWrapper.getVertex()))
-    print("Shortest of 259842341 to 16672159" , compute_shortest_path(matrixWrapper, "259842341", "16672159"))
+    print("Shortest of 100581193 to 47401917" , compute_shortest_path(matrixWrapper, "100581193", "47401917"))
