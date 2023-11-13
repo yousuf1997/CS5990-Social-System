@@ -22,4 +22,10 @@ dataReader = DataReader()
 #
 # print(matrix.getEdges("C"))
 
-dataReader.readData("Data/twitter/twitter_combined_" + "1" + ".txt", "Twitter", Matrix("test"))
+# dataReader.readData("Data/twitter/twitter_combined_" + "1" + ".txt", "Twitter", Matrix("test"))
+
+cat = {
+
+}
+
+print(cat["watewr"])
