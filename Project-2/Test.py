@@ -1,31 +1,25 @@
-from Model import Matrix
-from DataReader import DataReader
+import networkx as nx
+import matplotlib.pyplot as plt
 
-# matrix = Matrix()
-dataReader = DataReader()
-# matrix.put("A", "B")
-# matrix.put("A", "E")
-# matrix.put("A", "D")
-# matrix.put("B", "A")
-# matrix.put("B", "C")
-# matrix.put("C", "B")
-# matrix.put("C", "E")
-# matrix.put("C", "F")
-# matrix.put("D", "A")
-# matrix.put("D", "E")
-# matrix.put("E", "D")
-# matrix.put("E", "A")
-# matrix.put("E", "C")
-# matrix.put("E", "F")
-# matrix.put("F", "C")
-# matrix.put("F", "E")
-#
-# print(matrix.getEdges("C"))
+# Define the edges
+edges = [
+    ('A', 'B'), ('B', 'C'), ('C', 'D'), ('D', 'E'), ('E', 'F'),
+    ('F', 'G'), ('G', 'H'), ('H', 'I'), ('I', 'J'), ('J', 'K'),
+    ('K', 'L'), ('L', 'M'), ('M', 'N'), ('N', 'O'), ('O', 'P'),
+    ('P', 'Q'), ('Q', 'R'), ('R', 'S'), ('S', 'T'), ('T', 'U'),
+    ('U', 'V'), ('V', 'W'), ('W', 'X'), ('X', 'Y'), ('Y', 'Z'),
+    ('Z', 'A')
+]
 
-# dataReader.readData("Data/twitter/twitter_combined_" + "1" + ".txt", "Twitter", Matrix("test"))
+# Create an undirected graph
+G = nx.Graph()
 
-cat = {
+# Add edges to the graph
+G.add_edges_from(edges)
 
-}
+# Draw the graph
+pos = nx.spring_layout(G)
+nx.draw(G, pos, with_labels=True, font_weight='bold', node_size=700, node_color='skyblue', font_size=8)
 
-print(cat["watewr"])
+# Show the plot
+plt.show()

@@ -1,35 +1,32 @@
 
 class Matrix:
     def __init__(self, name):
-        self.__matrix = {}
+        self.matrix = {}
         self.__vertexList = set()
         self.name = name
 
     def put(self, vertex, edge):
-        edgesMap = {}
         try:
-            edgesMap = self.__matrix[vertex]
+            edgesMap = self.matrix[vertex]
         except:
-            pass
+            edgesMap = {}
         ## distance
         edgesMap[edge] = 0
-
         self.__vertexList.add(vertex)
         self.__vertexList.add(edge)
-
-        self.__matrix[vertex] = edgesMap
+        self.matrix[vertex] = edgesMap
 
     def getEdges(self, vertex):
         try:
-            return list(self.__matrix[vertex].keys())
-        except:
+            return self.matrix[vertex]
+        except Exception as e:
             return None
 
     def getVertex(self):
         return set(self.__vertexList)
 
     def getMatrix(self):
-        return self.__matrix
+        return self.matrix
 
 class MatrixWrapper:
 
@@ -47,14 +44,33 @@ class MatrixWrapper:
                 edges.extend(mEdges)
         return sorted(list(set(edges)))
 
+    def getEdgesWithWeight(self, vertex):
+        edges = {}
+        for matrix in self.__matrixContainer:
+            try:
+                mEdges = matrix.matrix[vertex]
+                if mEdges != None:
+                    for edge, distance in mEdges.items():
+                        if not self.__isPresent(edges, edge):
+                            edges[edge] = distance
+            except:
+                pass
+        return edges
+
+    def __isPresent(self, edges, edge):
+        return edge in edges.keys()
+
     def updateDistanceToAnEdge(self, vertex, edge, distance):
-        edgeMap = None
-        try:
-            edgeMap = self.__matrixContainer[vertex]
-        except:
-            self.__matrixContainer[vertex] = {}
-            edgeMap = self.__matrixContainer[vertex]
-        edgeMap[edge] = distance
+        incrementer = 0
+        while incrementer != -1 and incrementer < len(self.__matrixContainer):
+            try:
+                edgesMap = self.__matrixContainer[incrementer].matrix[vertex]
+                edgesMap[edge] = distance
+                self.__matrixContainer[incrementer][vertex] = edgesMap
+                incrementer = -1
+            except:
+                pass
+            incrementer = incrementer + 1
 
     def getVertex(self):
         vertex = []
@@ -63,8 +79,10 @@ class MatrixWrapper:
         return sorted(set(vertex))
 
 class ProcessorWrapper:
-    def __init__(self, matrix: Matrix, scatterType: str, marixWrapper : MatrixWrapper = None, vertex = None):
+    def __init__(self, matrix: Matrix = None, scatterType: str = None, matrixWrapper : MatrixWrapper = None, vertex = None, subVertexIndexStart = None):
         self.scatterType = scatterType
         self.matrix = matrix
-        self.matrixWrapper = marixWrapper
+        self.matrixWrapper = matrixWrapper
         self.vertex = vertex
+        self.subVertexIndexStart = subVertexIndexStart
+        self.centralityInfo = {}

@@ -30,12 +30,9 @@ matrix = comm.scatter(matrix, root=0)
 if matrix.scatterType == BUILD_ADJACENCY_LIST:
     if rank in range(0, 21):
         ## read the file and populate the individual matrix
-        dataReader.readData("Data/twitter/twitter_combined_" + str(rank) + ".txt", "Twitter", matrix.matrix)
+        dataReader.readData("data/test/data_" + str(rank) + ".txt", "Twitter", matrix.matrix)
     else:
-        pass
-if matrix.scatterType == COMPUTE_SHORTEST_DISTANCE:
-    print("Received sub vertex")
-
+        print("excessive ")
 
 gatheredMatrix = comm.gather(matrix, root=0)
 
@@ -48,13 +45,45 @@ if rank == 0:
         if matrix.matrix.name != "rank 0":
             matrixWrapper.appendMatrix(matrix.matrix)
     print("Vertexes ", len(matrixWrapper.getVertex()))
-    print("About to scatter sub vertex")
     ### new scatter
     if gatheredMatrix[0].scatterType == BUILD_ADJACENCY_LIST:
         originalArray = matrixWrapper.getVertex()
         subarraySize = len(originalArray) // 40
         subVertex = [originalArray[i * subarraySize: (i + 1) * subarraySize] for i in range(40)]
-        matrix = [ProcessorWrapper(Matrix("rank " + str(i + 1)), COMPUTE_SHORTEST_DISTANCE)]
+        matrix = [ProcessorWrapper(None, COMPUTE_SHORTEST_DISTANCE)]
         for i, subV in enumerate(subVertex):
-            matrix.append(ProcessorWrapper(Matrix("rank " + str(i + 1)), COMPUTE_SHORTEST_DISTANCE, matrixWrapper, subV))
-        matrix = comm.scatter(matrix, root=0)
+            subStartIndex = i
+            if subStartIndex != 0:
+                subStartIndex = (i * len(subVertex[i - 1])) - 1
+            matrix.append(ProcessorWrapper(None, COMPUTE_SHORTEST_DISTANCE, matrixWrapper, subV, subStartIndex))
+
+matrix = comm.scatter(matrix, root=0)
+
+comm.Barrier()
+
+if matrix.vertex != None:
+    ## perform shortest path calculation
+    subVertex = matrix.vertex ## sub vertex
+    for index, vertex in enumerate(subVertex):
+        ## compute the distance of each vertext
+        for targetVertex in matrix.matrixWrapper.getVertex()[matrix.subVertexIndexStart + 1:]:
+            minDistance = compute_shortest_path(matrix.matrixWrapper, vertex, targetVertex)
+            matrix.matrixWrapper.updateDistanceToAnEdge(vertex, targetVertex, minDistance)
+
+gatheredMatrix = comm.gather(matrix, root=0)
+
+comm.Barrier()
+
+if rank == 0:
+    gatheredMatrix = list(gatheredMatrix)
+    matrixWrapper = MatrixWrapper()
+    print("Computed the shortest distances on each vertex")
+    # for processWrapper in gatheredMatrix:
+    #     if processWrapper.matrixWrapper != None:
+    #         print("Gathered >> A", processWrapper.matrixWrapper.getEdgesWithWeight("A"))
+    #         print("Gathered >> B", processWrapper.matrixWrapper.getEdgesWithWeight("B"))
+    #         print("Gathered >> C", processWrapper.matrixWrapper.getEdgesWithWeight("C"))
+    #         print("Gathered >> D", processWrapper.matrixWrapper.getEdgesWithWeight("D"))
+    #         print("Gathered >> E", processWrapper.matrixWrapper.getEdgesWithWeight("E"))
+    #         print("Gathered >> E", processWrapper.matrixWrapper.getEdgesWithWeight("F"))
+
