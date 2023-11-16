@@ -17,7 +17,7 @@ matrix = None
 if rank == 0:
     ## populate empty matrix
     matrix = []
-    for i in range(4):
+    for i in range(21):
         matrix.append(ProcessorWrapper(Matrix("rank " + str(i)), BUILD_ADJACENCY_LIST))
     ## if this is rank 0, it will send the data
     ## otherwise will receieve the data
