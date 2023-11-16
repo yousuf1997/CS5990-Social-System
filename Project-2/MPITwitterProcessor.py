@@ -30,7 +30,7 @@ matrix = comm.scatter(matrix, root=0)
 if matrix.scatterType == BUILD_ADJACENCY_LIST:
     if rank in range(0, 21):
         ## read the file and populate the individual matrix
-        dataReader.readData("Data/twitter/twitter_combined" + str(rank) + ".txt", "Twitter", matrix.matrix)
+        dataReader.readData("Data/twitter/twitter_combined_" + str(rank) + ".txt", "Twitter", matrix.matrix)
     else:
         print("excessive ")
 
