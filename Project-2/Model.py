@@ -86,3 +86,15 @@ class ProcessorWrapper:
         self.vertex = vertex
         self.subVertexIndexStart = subVertexIndexStart
         self.centralityInfo = {}
+        self.allMatrixWrapper = []
+        self.centralityMeasures = {}
+
+    def getDistance(self, vertex, edges):
+        index = 0
+        while index < len(self.allMatrixWrapper):
+            if self.allMatrixWrapper[index] != None:
+                if self.allMatrixWrapper[index].getEdgesWithWeight(vertex)[edges] is not None and self.allMatrixWrapper[index].getEdgesWithWeight(vertex)[edges] != 0:
+                    return self.allMatrixWrapper[index].getEdgesWithWeight(vertex)[edges]
+            index = index + 1
+        return 0
+
