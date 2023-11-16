@@ -28,9 +28,9 @@ matrix = comm.scatter(matrix, root=0)
 
 
 if matrix.scatterType == BUILD_ADJACENCY_LIST:
-    if rank in range(0, 4):
+    if rank in range(0, 21):
         ## read the file and populate the individual matrix
-        dataReader.readData("data/test/data_" + str(rank) + ".txt", "Twitter", matrix.matrix)
+        dataReader.readData("Data/twitter/twitter_combined" + str(rank) + ".txt", "Twitter", matrix.matrix)
     else:
         print("excessive ")
 
@@ -48,8 +48,8 @@ if rank == 0:
     ### new scatter
     if gatheredMatrix[0].scatterType == BUILD_ADJACENCY_LIST:
         originalArray = matrixWrapper.getVertex()
-        subarraySize = len(originalArray) // 3
-        subVertex = [originalArray[i * subarraySize: (i + 1) * subarraySize] for i in range(3)]
+        subarraySize = len(originalArray) // 20
+        subVertex = [originalArray[i * subarraySize: (i + 1) * subarraySize] for i in range(20)]
         matrix = [ProcessorWrapper(None, COMPUTE_SHORTEST_DISTANCE)]
         for i, subV in enumerate(subVertex):
             subStartIndex = i
@@ -84,8 +84,8 @@ if rank == 0:
             finalProcessWrapper.allMatrixWrapper.append(processWrapper.matrixWrapper)
 
     originalArray = gatheredMatrix[1].matrixWrapper.getVertex()
-    subarraySize = len(originalArray) // 3
-    subVertex = [originalArray[i * subarraySize: (i + 1) * subarraySize] for i in range(3)]
+    subarraySize = len(originalArray) // 20
+    subVertex = [originalArray[i * subarraySize: (i + 1) * subarraySize] for i in range(20)]
     matrix = [(finalProcessWrapper, [])]
     for subV in subVertex:
         ## since this is undirected node
@@ -100,8 +100,27 @@ comm.Barrier()
 if rank > 0:
     ## compute the centrality
     ## for each vertex which is the second element of the tuple
-    pass
+    subVertexes = matrix[1]
+    fProcessorWrapper = matrix[0]
+    for vertex in subVertexes:
+        sum = 0
+        for edge in subVertexes:
+            if vertex != edge:
+                if fProcessorWrapper.getDistance(vertex, edge) != 0:
+                    sum = sum + fProcessorWrapper.getDistance(vertex, edge)
+                else:
+                    sum = sum + fProcessorWrapper.getDistance(edge, vertex)
+        fProcessorWrapper.centralityMeasures[vertex] = (len(fProcessorWrapper.allMatrixWrapper[1].getVertex()) - 1) / sum
+
+
 
 gatheredCentrality = comm.gather(matrix, root=0)
 
 comm.Barrier()
+
+
+if rank == 0:
+    print("Finsihed calcualting centrality measures")
+    gatheredCentrality = list(gatheredCentrality)
+    for c in gatheredCentrality:
+        print("centralityMeasures " , c[0].centralityMeasures)

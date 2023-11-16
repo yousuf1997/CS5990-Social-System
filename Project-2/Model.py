@@ -92,9 +92,13 @@ class ProcessorWrapper:
     def getDistance(self, vertex, edges):
         index = 0
         while index < len(self.allMatrixWrapper):
-            if self.allMatrixWrapper[index] != None:
-                if self.allMatrixWrapper[index].getEdgesWithWeight(vertex)[edges] is not None and self.allMatrixWrapper[index].getEdgesWithWeight(vertex)[edges] != 0:
-                    return self.allMatrixWrapper[index].getEdgesWithWeight(vertex)[edges]
+            try:
+                if self.allMatrixWrapper[index] != None:
+                    if self.allMatrixWrapper[index].getEdgesWithWeight(vertex)[edges] is not None and \
+                            self.allMatrixWrapper[index].getEdgesWithWeight(vertex)[edges] != 0:
+                        return self.allMatrixWrapper[index].getEdgesWithWeight(vertex)[edges]
+            except:
+                pass
             index = index + 1
         return 0
 

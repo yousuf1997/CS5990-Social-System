@@ -13,7 +13,7 @@ class DataReader:
         ## all the lines as a graph
         lines = file.readlines()
         for index, line in enumerate(lines):
-            lineData = line.split(',')
+            lineData = line.split(' ')
             ## vertex, edge
             matrix.put(str(lineData[0].strip()), (str(lineData[1].strip()) if len(lineData) > 1 else str(-1)))
         print("Finished reading data from " + filePath + " >> " + dataType + " data set")
