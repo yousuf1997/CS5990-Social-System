@@ -13,7 +13,7 @@ class DataReader:
         adjacencyMap = {}
         lines = file.readlines()
         for index, line in enumerate(lines):
-            lineData = line.split('    ')
+            lineData = line.split(' ')
             ## vertex, edge
             try:
                 edgeList = adjacencyMap[str(lineData[0].strip())]
