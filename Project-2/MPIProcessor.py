@@ -142,4 +142,4 @@ if rank == 0:
     totalNodes = len(sorted_items)
     for i, (key, value) in enumerate(sorted_items):
         sumOfAllCentrality = sumOfAllCentrality + value
-    print("Average of centrality of all nodes : ", sum(sumOfAllCentrality) / totalNodes)
+    print("Average of centrality of all nodes : ", sumOfAllCentrality / totalNodes)
