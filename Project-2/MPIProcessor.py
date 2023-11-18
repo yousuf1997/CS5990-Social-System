@@ -23,7 +23,7 @@ comm.Barrier()
 adjacencyMap = comm.scatter(adjacencyMap, root=0)
 
 ## read the data and append to the current instance of the dictionary
-adjacencyMap.update(dataReader.readData("Data/facebook/facebook_combined_" + str(rank) + ".txt", "Facebook"))
+adjacencyMap.update(dataReader.readData("Data/twitter/twitter_combined_" + str(rank) + ".txt", "Facebook"))
 
 aggregatedAdjacencyMap = comm.gather(adjacencyMap, root=0)
 
@@ -41,7 +41,7 @@ if rank == 0:
             for vertex, edges in adjMap.items():
                 for edge in edges:
                     aggregateGraph.add_edge(str(vertex), str(edge))
-                    # aggregateGraph.add_edge(str(edge), str(vertex))
+                    aggregateGraph.add_edge(str(edge), str(vertex))
     print("Aggregated the data, we have total of ", len(aggregateGraph.nodes), "nodes, and", len(aggregateGraph.edges), "edges")
     ## build sublist of vertex
     aggregateGraph = aggregateGraph.to_undirected()
