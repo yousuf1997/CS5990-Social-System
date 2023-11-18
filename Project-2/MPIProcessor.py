@@ -138,4 +138,4 @@ if rank == 0:
     print("Printing the top 5 items")
     for i, (key, value) in enumerate(sorted_items[:5], 1):
         print(f"{i}. Key: {key}, Value: {value}")
-    print("Average of centrality of all nodes : ", (sum(sorted_items.values())) / len(sorted_items))
+    print("Average of centrality of all nodes : ", (sum(sorted_items)) / len(sorted_items))
