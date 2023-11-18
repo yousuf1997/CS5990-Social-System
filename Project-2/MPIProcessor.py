@@ -35,21 +35,22 @@ graphSubVertexData = []
 
 if rank == 0:
     print("We are the merging stage, received total of", len(aggregatedAdjacencyMap) - 1, "data.")
-    aggregateGraph = Graph()
+    aggregateGraph = nx.DiGraph()
     for adjMap in aggregatedAdjacencyMap:
         if len(adjMap) != 0:
             for vertex, edges in adjMap.items():
                 for edge in edges:
                     aggregateGraph.add_edge(str(vertex), str(edge))
+                    # aggregateGraph.add_edge(str(edge), str(vertex))
     print("Aggregated the data, we have total of ", len(aggregateGraph.nodes), "nodes, and", len(aggregateGraph.edges), "edges")
-
     ## build sublist of vertex
+    aggregateGraph = aggregateGraph.to_undirected()
     totalVertex = aggregateGraph.nodes
-    subListLength = len(totalVertex) // 20
+    subListLength = len(totalVertex) // 4
     totalSubList = 0
     subListStartIndex = 0
     graphSubVertexData.append(())
-    while totalSubList < 20:
+    while totalSubList < 4:
         graphSubVertexData.append((aggregateGraph, list(totalVertex), subListStartIndex, subListStartIndex + subListLength, []))
         subListStartIndex = subListStartIndex + subListLength
         totalSubList = totalSubList + 1
