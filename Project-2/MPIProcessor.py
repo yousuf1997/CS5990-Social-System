@@ -23,7 +23,7 @@ comm.Barrier()
 adjacencyMap = comm.scatter(adjacencyMap, root=0)
 
 ## read the data and append to the current instance of the dictionary
-adjacencyMap.update(dataReader.readData("Data/twitter/twitter_combined_" + str(rank) + ".txt", "Facebook"))
+adjacencyMap.update(dataReader.readData("Data/facebook/facebook_combined_" + str(rank) + ".txt", "Facebook"))
 
 aggregatedAdjacencyMap = comm.gather(adjacencyMap, root=0)
 
