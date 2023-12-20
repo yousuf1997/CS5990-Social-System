@@ -2,6 +2,8 @@ import threading
 from NetworkBuilder import NetworkBuilder
 from DataReader import  DataReader
 from tabulate import tabulate
+import networkx as nx
+import matplotlib.pyplot as plt
 
 networkBuilder = NetworkBuilder()
 dataReader = DataReader()
@@ -17,9 +19,8 @@ originalNetworkOfTwitch = networkBuilder.buildGraph(originalNetworkOfTwitchRawDa
 
 
 def watts():
-    wattsModelOfTwitchData = networkBuilder.generateWattsStrogatzNetwork(originalNetworkOfTwitch, K=1000, beta=0.001)
-    print("Twitch Data Analytics Of Watts Graph : Average Path Length " + str(networkBuilder.computeAveragePathLength(wattsModelOfTwitchData)))
-    print("Twitch Data Analytics Of Watts Graph : Average Clustering " + str(networkBuilder.calculateAverageClusteringCoefficient(wattsModelOfTwitchData)))
-
-
+    wGraph = networkBuilder.generateWattsStrogatzNetwork(originalNetworkOfTwitch, K=10, beta=0.1)
+    nx.draw(wGraph)
+    plt.show()
+    print(wGraph.adj)
 watts()
